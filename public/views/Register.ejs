@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="../css/Register.css">
+</head>
+<body>
+    <!-- box 1 -->
+    <div class="Register">
+            <% if (typeof success !== 'undefined') { %>
+                <div class="Alert">
+                    <p><%= success %></p>
+                </div>
+            <% } %>
+
+            <% if (typeof error !== 'undefined') { %>
+                <div class="Alert">
+                    <p><%= error %></p>
+                </div>
+            <% } %>
+
+        <h1>Register</h1>
+
+        <form action="/POST_Person" method="post" id="POST_Person">
+            <div class="Register_username">
+                <p>Username</p>
+                <input type="text" name="username" id="username" placeholder="example56">
+                <span id="errorUsername"></span>
+            </div>
+            <div class="Register_password">
+                <p>Password</p>
+                <input type="text" name="password" id="password", placeholder="123example">
+                <span id="errorPassword"></span>
+            </div>
+            <div class="Register_email">
+                <p>Email</p>
+                <input type="email" name="email" id="email" placeholder="example@gmail.com">
+                <span id="errorEmail"></span>
+            </div>
+            <div class="Register_confirm">
+                <button type="submit">Confirm</button>
+            </div>
+        </form>
+
+        <div class="Login">
+            <button>Login</button>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    document.getElementById("POST_Person").addEventListener("submit", function(event) {
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const email = document.getElementById("email").value.trim();
+
+        const errorUsername = document.getElementById("errorUsername");
+        const errorPassword = document.getElementById("errorPassword");
+        const errorEmail = document.getElementById("errorEmail");
+
+        if(username === "") {
+            event.preventDefault();
+            errorUsername.textContent = "Please enter your username.";
+        } else errorUsername.textContent = "";
+
+        if(password === "") {
+            event.preventDefault();
+            errorPassword.textContent = "Please enter your password.";
+        } else errorPassword.textContent = "";
+
+        if(email === "") {
+            event.preventDefault();
+            errorEmail.textContent = "Please enter your email.";
+        } else {
+            const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            if(!gmailRegex.test(email)) {
+                event.preventDefault();
+                errorEmail.textContent = "Please enter a valid gmail address.";
+            } else errorEmail.textContent = "";
+        }
+    })
+</script>

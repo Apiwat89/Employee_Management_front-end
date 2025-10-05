@@ -1,0 +1,153 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+    height: 100vh;
+    font-family: sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* box 1 */
+/* Register */
+.Register {
+    border: 2px solid rgb(0, 0, 0);
+    padding: 50px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.Register h1 {
+    text-align: center;
+}
+
+/* Alert */
+.Alert {
+    border: 2px solid rgb(199, 199, 199);
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgb(239, 238, 238);
+}
+
+/* Register username */
+.Register_username p {
+    margin-bottom: 10px;
+}
+
+.Register_username input { 
+    width: 100%;
+    font-size: 16px;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.Register_username span {
+    color: red;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* Register password */
+.Register_password p {
+    margin-bottom: 10px;
+}
+
+.Register_password input { 
+    width: 100%;
+    font-size: 16px;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.Register_password span {
+    color: red;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* Register email */
+.Register_email p {
+    margin-bottom: 10px;
+}
+
+.Register_email input { 
+    width: 100%;
+    font-size: 16px;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.Register_email span {
+    color: red;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Register confirm */
+.Register_confirm {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.Register_confirm button {
+    background-color: #007BFF;
+    color: white;  
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.Register_confirm button:hover {
+    background-color: #0056b3;  
+    transform: scale(1.05);
+}
+
+.Register_confirm button:active {
+    transform: scale(0.97); 
+}
+
+/* Login */
+.Login {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.Login button {
+    background-color: #7c7c7c;
+    color: white;  
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.Login button:hover {
+    background-color: #4f4f4f;  
+    transform: scale(1.05);
+}
+
+.Login button:active {
+    transform: scale(0.97); 
+}
