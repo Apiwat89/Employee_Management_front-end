@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PersonalInfo</title>
+    <link rel="stylesheet" href="../css/PersonalInfo.css">
+</head>
+<body>
+    <!-- box 1 -->
+    <div class="PersonalInfo">
+        <% if (typeof error !== 'undefined' && error) { %>
+            <div class="Alert">
+                <p><%= error %></p>
+            </div>
+        <% } %>
+
+        <h1>PersonalInfo</h1>
+
+        <form action="/create_employee" method="post" id="create_employee">
+            <div class="PersonalInfo_NameThai">
+                <div class="Firstname">
+                    <p>First name (Thai)</p>
+                    <input type="text" name="firstnameThai" id="firstnameThai">
+                    <span id="errorFirstnameThai"></span>
+                </div>
+                <div class="Lastname">
+                    <p>Last name (Thai)</p>
+                    <input type="text" name="lastnameThai" id="lastnameThai">
+                    <span id="errorLastnameThai"></span>
+                </div>
+            </div>
+            <div class="PersonalInfo_NameEng">
+                <div class="Firstname">
+                    <p>First name (Eng)</p>
+                    <input type="text" name="firstnameEng" id="firstnameEng">
+                    <span id="errorFirstnameEng"></span>
+                </div>
+                <div class="Lastname">
+                    <p>Last name (Eng)</p>
+                    <input type="text" name="lastnameEng" id="lastnameEng">
+                    <span id="errorLastnameEng"></span>
+                </div>
+            </div>
+            <div class="PersonalInfo_Birthday">
+                <p>Birthday</p>
+                <input type="date" name="birthday" id="birthday" style="text-align: center;">
+                <span id="errorBirthday"></span>
+            </div>
+            <div class="PersonalInfo_Address">
+                <p>Address</p>
+                <input type="text" name="address" id="address">
+                <span id="errorAddress"></span>
+            </div>
+            <div class="PersonalInfo_Email">
+                <p>Email</p>
+                <input type="email" name="email" id="email">
+                <span id="errorEmail"></span>
+            </div>
+            <div class="PersonalInfo_Number">
+                <p>Phone Number</p>
+                <input type="tel" name="number" id="number">
+                <span id="errorNumber"></span>
+            </div>
+            <div class="PersonalInfo_Position">
+                <p>Position</p>
+                 <select name="position" id="position">
+                    <option value="" disabled selected style="text-align: center;">-- Select Position --</option>
+                    <option value="Developer">Developer</option>
+                    <option value="Data Analyst">Data Analyst</option>
+                    <option value="HR Officer">HR Officer</option>
+                    <option value="Project Manager">Project Manager</option>
+                    <option value="Intern">Intern</option>
+                </select>
+                <span id="errorPosition"></span>
+            </div>
+            <div class="PersonalInfo_Confirm">
+                <button type="submit">Confirm</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- box 2 -->
+    <footer></footer>
+</body>
+</html>
+
+<!-- Make sure are not empty. -->
+<script>
+    document.getElementById("create_employee").addEventListener("submit", function(event) {
+        const firstnameThai = document.getElementById("firstnameThai").value.trim();
+        const lastnameThai = document.getElementById("lastnameThai").value.trim();
+        const firstnameEng = document.getElementById("firstnameEng").value.trim();
+        const lastnameEng = document.getElementById("lastnameEng").value.trim();
+        const birthday = document.getElementById("birthday").value.trim();
+        const address = document.getElementById("address").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const number = document.getElementById("number").value.trim();
+        const position = document.getElementById("position").value.trim();
+
+        const errorFirstnameThai = document.getElementById("errorFirstnameThai")
+        const errorLastnameThai = document.getElementById("errorLastnameThai")
+        const errorFirstnameEng = document.getElementById("errorFirstnameEng")
+        const errorLastnameEng = document.getElementById("errorLastnameEng")
+        const errorBirthday = document.getElementById("errorBirthday")
+        const errorAddress = document.getElementById("errorAddress")
+        const errorEmail = document.getElementById("errorEmail")
+        const errorNumber = document.getElementById("errorNumber")
+        const errorPosition = document.getElementById("errorPosition")
+
+        if(firstnameThai === "") {
+            event.preventDefault();
+            errorFirstnameThai.textContent = "Please enter your name in Thai.";
+        } else errorFirstnameThai.textContent = "";
+
+        if(lastnameThai === "") {
+            event.preventDefault();
+            errorLastnameThai.textContent = "Please enter your Thai surname.";
+        } else errorLastnameThai.textContent = "";
+
+        if(firstnameEng === "") {
+            event.preventDefault();
+            errorFirstnameEng.textContent = "Please enter your name in Eng.";
+        } else errorFirstnameEng.textContent = "";
+
+        if(lastnameEng === "") {
+            event.preventDefault();
+            errorLastnameEng.textContent = "Please enter your Eng surname.";
+        } else errorLastnameEng.textContent = "";
+
+        if(birthday === "") {
+            event.preventDefault();
+            errorBirthday.textContent = "Please enter your date of birth.";
+        } else errorBirthday.textContent = "";
+        
+        if(address === "") {
+            event.preventDefault();
+            errorAddress.textContent = "Please enter your address.";
+        } else errorAddress.textContent = "";
+
+        if(email === "") {
+            event.preventDefault();
+            errorEmail.textContent = "Please enter your email.";
+        } else errorEmail.textContent = "";
+        
+        if(number === "") {
+            event.preventDefault();
+            errorNumber.textContent = "Please enter your number.";
+        } else errorNumber.textContent = "";
+
+        if(position === "") {
+            event.preventDefault();
+            errorPosition.textContent = "Please enter your position.";
+        } else errorPosition.textContent = "";
+    })
+</script>
+
+<!-- Revert error values ​​when refreshing -->
+<script>
+    if (window.location.search.includes('error=')) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>

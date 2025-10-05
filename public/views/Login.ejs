@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/Login.css">
+</head>
+<body>
+    <% if (typeof notsuccess !== 'undefined' && notsuccess) { %>
+        <!-- box 1 -->
+        <div class="Status">
+            <p>Please wait for the staff to check and confirm your employee status.</p>
+        </div>
+    <% } else { %>
+        <!-- box 2 -->
+        <div class="Login">
+                <% if (typeof error !== 'undefined' && error) { %>
+                    <div class="Alert">
+                        <p><%= error %></p>
+                    </div>
+                <% } %>
+
+            <h1>Login</h1>
+
+            <form action="/check_person" method="post" id="check_person">
+                <div class="Login_username">
+                    <p>Username</p>
+                    <input type="text" name="username" id="username" placeholder="example56">
+                    <span id="errorUsername"></span>
+                </div>
+                <div class="Login_password">
+                    <p>Password</p>
+                    <input type="text" name="password" id="password", placeholder="123example">
+                    <span id="errorPassword"></span>
+                </div>
+                <div class="Login_confirm">
+                    <button type="submit">Confirm</button>
+                </div>
+            </form>
+
+            <div class="Register">
+                <a href="/register"><button>Register</button></a>
+            </div>
+        </div>
+    <% } %>
+</body>
+</html>
+
+<!-- Make sure are not empty. -->
+<script>
+    document.getElementById("check_person").addEventListener("submit", function(event) {
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        const errorUsername = document.getElementById("errorUsername");
+        const errorPassword = document.getElementById("errorPassword");
+
+        if(username === "") {
+            event.preventDefault();
+            errorUsername.textContent = "Please enter your username.";
+        } else errorUsername.textContent = "";
+
+        if(password === "") {
+            event.preventDefault();
+            errorPassword.textContent = "Please enter your password.";
+        } else errorPassword.textContent = "";
+    })
+</script>
+
+<!-- Revert error values ​​when refreshing -->
+<script>
+    if (window.location.search.includes('error=')) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>

@@ -9,13 +9,13 @@
 <body>
     <!-- box 1 -->
     <div class="Register">
-            <% if (typeof success !== 'undefined') { %>
+            <% if (typeof success !== 'undefined' && success) { %>
                 <div class="Alert">
                     <p><%= success %></p>
                 </div>
             <% } %>
 
-            <% if (typeof error !== 'undefined') { %>
+            <% if (typeof error !== 'undefined' && error) { %>
                 <div class="Alert">
                     <p><%= error %></p>
                 </div>
@@ -23,7 +23,7 @@
 
         <h1>Register</h1>
 
-        <form action="/POST_Person" method="post" id="POST_Person">
+        <form action="/create_person" method="post" id="create_person">
             <div class="Register_username">
                 <p>Username</p>
                 <input type="text" name="username" id="username" placeholder="example56">
@@ -45,14 +45,15 @@
         </form>
 
         <div class="Login">
-            <button>Login</button>
+            <a href="/login"><button>Login</button></a>
         </div>
     </div>
 </body>
 </html>
 
+<!-- Make sure are not empty. -->
 <script>
-    document.getElementById("POST_Person").addEventListener("submit", function(event) {
+    document.getElementById("create_person").addEventListener("submit", function(event) {
         const username = document.getElementById("username").value.trim();
         const password = document.getElementById("password").value.trim();
         const email = document.getElementById("email").value.trim();
@@ -82,4 +83,11 @@
             } else errorEmail.textContent = "";
         }
     })
+</script>
+
+<!-- Revert success and error values ​​when refreshing -->
+<script>
+    if (window.location.search.includes('success=') || window.location.search.includes('error=')) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
 </script>
