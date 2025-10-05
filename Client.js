@@ -66,7 +66,7 @@ app.get("/login", async (req, res) => {
             if (response.data?.success) {
                 const response = await axios.post(base_url + "/check_status_employee", {id_person: req.cookies.idUser});
 
-                if (response.data?.success) return res.redirect("/"); // home
+                if (response.data?.success) return res.redirect("/Dashboard");
                 else if (response.data?.notsuccess) return res.redirect(`/login?notsuccess=${encodeURIComponent(response.data?.notsuccess)}`);
                 else return res.redirect(`/login?error=${"An error occurred."}`);
             } else if (response.data?.error) return res.redirect("/personalInfo");
@@ -103,7 +103,8 @@ app.post("/check_person", async (req, res) => {
 // PersonalInfo
 app.get("/personalInfo", (req, res) => {
     try {
-        return res.render("PersonalInfo");
+        const {error} = req.query;
+        return res.render("PersonalInfo", {error});
     } catch (err) {
         console.error(err);
         res.status(500).send("Error /personalInfo");
@@ -131,6 +132,21 @@ app.post("/create_employee", async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send("Error /create_employee");
+    }
+});
+
+// Dashboard
+app.get("/Dashboard", async (req, res) => {
+    try {
+        const response = await axios.post(base_url + "/check_status_employee", {id_person: req.cookies.idUser});
+
+        if (response.data?.position === "HR Officer") return res.render("Dashboard");
+        else if (response.data?.position !== "HR Officer") return res.redirect("/"); // for employee not HR
+        else if (response.data?.notsuccess) return res.redirect(`/login?notsuccess=${encodeURIComponent(response.data?.notsuccess)}`);
+        else return res.redirect(`/login?error=${"An error occurred."}`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error /personalInfo");
     }
 });
 
