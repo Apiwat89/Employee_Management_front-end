@@ -144,8 +144,26 @@ app.get("/Dashboard", async (req, res) => {
         const response = await axios.post(base_url + "/check_status_employee", {id_person: req.cookies.idUser});
 
         if (response.data?.position === "HR Officer") {
-            const response = await axios.get(base_url + "/top10_salary");
-            return res.render("Dashboard", {Fullname: response.data?.rows.map(r => r.Fullname), Salary: response.data?.rows.map(r => r.Salary)});
+            const endpoints = [
+                {key: "Birthday", url: "/birthday_countdown", fields: ["Fullname", "Birthday", "Position", "DayLeft"]},
+                {key: "Salary", url: "/top10_salary", fields: ["Fullname", "Salary"]},
+                {key: "Sposition", url: "/top10_Sposition", fields: ["Fullname", "Position", "Salary"]},
+                {key: "OT", url: "/top10_OT", fields: ["Fullname", "Position", "OT"]},
+                {key: "Bonus", url: "/top10_Bonus", fields: ["Fullname", "Position", "Bonus"]},
+                {key: "Department", url: "/department", fields: ["ID_Department", "Department", "EmployeeCount"]}
+            ];
+
+            const response = await Promise.all(endpoints.map(ep => axios.get(base_url + ep.url)));
+
+            const renderData = {};
+            response.forEach((resData, i) => {
+                const {key, fields} = endpoints[i];
+                fields.forEach(field => {
+                    renderData[`${key}_${field}`] = resData.data?.rows.map(r => r[field]) || [];
+                });
+            });
+
+            return res.render("Dashboard", {renderData});
         }
         else if (response.data?.position !== "HR Officer") return res.redirect("/"); // for employee not HR
         else if (response.data?.notsuccess) return res.redirect(`/login?notsuccess=${encodeURIComponent(response.data?.notsuccess)}`);

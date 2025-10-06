@@ -5,47 +5,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../css/Dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <!-- box 1 -->
     <div class="Container">
         <%- include('nav.ejs') -%>
         <div class="Detail">
-            <div class="Box1"></div>
+            <% if (renderData.Birthday_Fullname || renderData.Birthday_Fullname.length !== 0) { %>
+                <div class="Box1">
+                    <% 
+                        const birthday = renderData.Birthday_Fullname.map((name, i) => ({
+                            name,
+                            birthday: renderData.Birthday_Birthday[i],
+                            position: renderData.Birthday_Position[i],
+                            dayLeft: renderData.Birthday_DayLeft[i]
+                        }));
+
+                        birthday.sort((a,b) => a.dayLeft - b.dayLeft);
+                        const top5Birthdays = birthday.slice(0, 5);
+
+                        top5Birthdays.forEach(person => {
+                    %>
+                        <p>
+                            <b style="color: rgb(196, 49, 49);">[Alert]</b>
+                            Counting down <b><%= person.dayLeft %></b> more days until 
+                            <b><%= person.name %></b> birthday🎉 - <%= person.position %> position, 
+                            on <b><%= person.birthday %></b>
+                        </p>
+                    <% }) %>
+                </div>
+            <% } %>
 
             <div class="Box2">
-                <div class="TopSalary">
-                    <h3>Top 10 salaries</h3>
-                    
-                    <div class="header-row">
-                        <h4>Full name</h4>
-                        <h4>Salary</h4>
+                <div class="TopRow">
+                    <div class="TopSalary">
+                        <h3>Top 10 Salaries</h3>
+                        
+                        <div class="header-row">
+                            <h4>Full name</h4>
+                            <h4>Salary</h4>
+                        </div>
+
+                        <% for (let n = 0; n < renderData.Salary_Fullname.length; n++) { %>
+                            <div class="data-row">
+                                <p><%= renderData.Salary_Fullname[n] %></p>
+                                <p><%= Number(renderData.Salary_Salary[n]).toLocaleString() %></p>
+                            </div>
+                        <% } %>
                     </div>
 
-                    <% for (let n = 0; n < Fullname.length; n++) { %>
-                        <div class="data-row">
-                            <p><%= Fullname[n] %></p>
-                            <p><%= Number(Salary[n]).toLocaleString() %></p>
+                    <div class="TopPosition">
+                        <h3>Top 10 Highest Salaries by Position</h3>
+                        
+                        <div class="header-row">
+                            <h4>Full name</h4>
+                            <h4>Position</h4>
+                            <h4>Salary</h4>
                         </div>
-                    <% } %>
+
+                        <% for (let n = 0; n < renderData.Sposition_Fullname.length; n++) { %>
+                            <div class="data-row">
+                                <p><%= renderData.Sposition_Fullname[n] %></p>
+                                <p><%= renderData.Sposition_Position[n] %></p>
+                                <p><%= Number(renderData.Sposition_Salary[n]).toLocaleString() %></p>
+                            </div>
+                        <% } %>
+                    </div>
                 </div>
 
-                <div class="TopPosition">
-                    <h3>Top 10 salaries for various positions</h3>
-                    
-                    <div class="header-row">
-                        <h4>Full name</h4>
-                        <h4>Salary</h4>
+                <div class="TopRow2">
+                    <div class="TopOT">
+                        <h3>Top 10 Overtime</h3>
+                        
+                        <div class="header-row">
+                            <h4>Full name</h4>
+                            <h4>Position</h4>
+                            <h4>OT</h4>
+                        </div>
+
+                        <% for (let n = 0; n < renderData.OT_Fullname.length; n++) { %>
+                            <div class="data-row">
+                                <p><%= renderData.OT_Fullname[n] %></p>
+                                <p><%= renderData.OT_Position[n] %></p>
+                                <p><%= Number(renderData.OT_OT[n]).toLocaleString() %></p>
+                            </div>
+                        <% } %>
                     </div>
 
-                    <% for (let n = 0; n < Fullname.length; n++) { %>
-                        <div class="data-row">
-                            <p><%= Fullname[n] %></p>
-                            <p><%= Number(Salary[n]).toLocaleString() %></p>
+                    <div class="TopBonus">
+                        <h3>Top 10 Bonus</h3>
+                        
+                        <div class="header-row">
+                            <h4>Full name</h4>
+                            <h4>Position</h4>
+                            <h4>Bonus</h4>
                         </div>
-                    <% } %>
+
+                        <% for (let n = 0; n < renderData.Bonus_Fullname.length; n++) { %>
+                            <div class="data-row">
+                                <p><%= renderData.Bonus_Fullname[n] %></p>
+                                <p><%= renderData.Bonus_Position[n] %></p>
+                                <p><%= Number(renderData.Bonus_Bonus[n]).toLocaleString() %></p>
+                            </div>
+                        <% } %>
+                    </div>
                 </div>
             </div>
+
+            <div class="Box3">
+                <h3>Various agencies</h3>
+
+                <div class="header-row">
+                    <h4>Department</h4>
+                    <h4>Number of people</h4>
+                    <h4>View details</h4>
+                </div>
+
+                <% for (let n = 0; n < renderData.Department_Department.length; n++) { %>
+                    <div class="data-row">
+                        <p><b><%= renderData.Department_Department[n] %></b></p>
+                        <p><b><%= renderData.Department_EmployeeCount[n] %></b> <i class="fa-solid fa-user-group"></i></p>
+                        <p><a href="#">view <i class="fa-solid fa-eye"></i></a></p>
+                    </div>
+                <% } %>
+
+                <p class="Additional"> <b>Additional information: </b>Only the top 5 departments with the largest number of employees are shown.</p>
+            </div>
+
+            <div class="Box4"></div>
         </div>
     </div>
 </body>
