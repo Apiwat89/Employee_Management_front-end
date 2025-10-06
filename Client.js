@@ -69,9 +69,11 @@ app.get("/login", async (req, res) => {
                 if (response.data?.success) return res.redirect("/Dashboard");
                 else if (response.data?.notsuccess) return res.redirect(`/login?notsuccess=${encodeURIComponent(response.data?.notsuccess)}`);
                 else return res.redirect(`/login?error=${"An error occurred."}`);
-            } else if (response.data?.error) return res.redirect("/personalInfo");
+            } 
+            else if (response.data?.error) return res.redirect("/personalInfo");
             else return res.redirect(`/login?error=${"An error occurred."}`);
-        } else return res.render("Login", {error, notsuccess});
+        } 
+        else return res.render("Login", {error, notsuccess});
     } catch (err) {
         console.error(err);
         res.status(500).send("Error /login");
@@ -92,7 +94,8 @@ app.post("/check_person", async (req, res) => {
         if (response.data?.success) {
             res.cookie('idUser', response.data?.ID, { maxAge: 900000, httpOnly: true });
             return res.redirect(`/login?success=${encodeURIComponent(response.data?.success)}`);
-        } else if (response.data?.error) return res.redirect(`/login?error=${encodeURIComponent(response.data?.error)}`);
+        } 
+        else if (response.data?.error) return res.redirect(`/login?error=${encodeURIComponent(response.data?.error)}`);
         else return res.redirect(`/login?error=${"An error occurred."}`);
     } catch (err) {
         console.error(err);
@@ -140,7 +143,10 @@ app.get("/Dashboard", async (req, res) => {
     try {
         const response = await axios.post(base_url + "/check_status_employee", {id_person: req.cookies.idUser});
 
-        if (response.data?.position === "HR Officer") return res.render("Dashboard");
+        if (response.data?.position === "HR Officer") {
+            const response = await axios.get(base_url + "/top10_salary");
+            return res.render("Dashboard", {Fullname: response.data?.rows.map(r => r.Fullname), Salary: response.data?.rows.map(r => r.Salary)});
+        }
         else if (response.data?.position !== "HR Officer") return res.redirect("/"); // for employee not HR
         else if (response.data?.notsuccess) return res.redirect(`/login?notsuccess=${encodeURIComponent(response.data?.notsuccess)}`);
         else return res.redirect(`/login?error=${"An error occurred."}`);

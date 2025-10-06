@@ -10,7 +10,43 @@
     <!-- box 1 -->
     <div class="Container">
         <%- include('nav.ejs') -%>
-        <div class="Detail"></div>
+        <div class="Detail">
+            <div class="Box1"></div>
+
+            <div class="Box2">
+                <div class="TopSalary">
+                    <h3>Top 10 salaries</h3>
+                    
+                    <div class="header-row">
+                        <h4>Full name</h4>
+                        <h4>Salary</h4>
+                    </div>
+
+                    <% for (let n = 0; n < Fullname.length; n++) { %>
+                        <div class="data-row">
+                            <p><%= Fullname[n] %></p>
+                            <p><%= Number(Salary[n]).toLocaleString() %></p>
+                        </div>
+                    <% } %>
+                </div>
+
+                <div class="TopPosition">
+                    <h3>Top 10 salaries for various positions</h3>
+                    
+                    <div class="header-row">
+                        <h4>Full name</h4>
+                        <h4>Salary</h4>
+                    </div>
+
+                    <% for (let n = 0; n < Fullname.length; n++) { %>
+                        <div class="data-row">
+                            <p><%= Fullname[n] %></p>
+                            <p><%= Number(Salary[n]).toLocaleString() %></p>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

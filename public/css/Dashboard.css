@@ -18,7 +18,7 @@ body {
 
 /* Nav */
 .Nav {
-    width: 250px;
+    width: 15%;
     background-color: #1e293b;
     display: flex;
     flex-direction: column;
@@ -39,9 +39,120 @@ body {
     background-color: #334155;
 }
 
+.Nav .Menu a.active {
+    background-color: #2d4363;
+    font-weight: bold;
+}
+
 /* Detail */
 .Detail {
     flex: 1;
     background-color: #f1f5f9;
     padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.Box1, .Box2 {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Box 2 */
+.Box2 {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.TopSalary, .TopPosition {
+    background-color: #f8fafc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* TopSalry */
+.TopSalary {
+    width: 35%;
+}
+
+.TopSalary h3 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #1e3a8a;
+}
+
+.TopSalary .header-row,
+.TopSalary .data-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.TopSalary .header-row h4 {
+    font-weight: 700;
+    font-size: 15px;
+    color: #334155;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.TopSalary .data-row p {
+    margin: 0;
+    font-size: 14px;
+    color: #475569;
+    width: 50%;
+    padding: 5px 0px;
+}
+
+.TopSalary .data-row p:first-child {
+    text-align: left;
+}
+
+.TopSalary .data-row p:last-child {
+    text-align: right;
+}
+
+/* TopPosition */
+.TopPosition {
+    width: 65%;
+}
+
+.TopPosition h3 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #1e3a8a;
+}
+
+.TopPosition .header-row,
+.TopPosition .data-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.TopPosition .header-row h4 {
+    font-weight: 700;
+    font-size: 15px;
+    color: #334155;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.TopPosition .data-row p {
+    margin: 0;
+    font-size: 14px;
+    color: #475569;
+    width: 50%;
+    padding: 5px 0px;
+}
+
+.TopPosition .data-row p:first-child {
+    text-align: left;
+}
+
+.TopPosition .data-row p:last-child {
+    text-align: right;
 }
